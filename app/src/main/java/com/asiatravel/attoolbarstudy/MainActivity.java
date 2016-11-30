@@ -15,8 +15,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
+    /**
+     * 用来给Toolbar设置NavigationIcon，实现icon的动画切换
+     */
     private MaterialMenuDrawable mMenuDrawable;
     private boolean isDrawerOpen;
+    /**
+     * icon的不同切换状态
+     */
     private MaterialMenuDrawable.AnimationState mCurrentState;
     private View mStateView;
 
@@ -26,11 +32,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mToolbar = (Toolbar) findViewById(R.id.tool_bar);
+        /**
+         * 给当前窗口设置ActionBar为Toolbar
+         */
         setSupportActionBar(mToolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mStateView = findViewById(R.id.state_view);
+        /**
+         * 初始化mMenuDrawable
+         */
         mMenuDrawable = new MaterialMenuDrawable(this, Color.WHITE,
                 MaterialMenuDrawable.Stroke.THIN);
+        /**
+         * 默认切换动画是从菜单icon到返回icon
+         */
         mCurrentState = MaterialMenuDrawable.AnimationState.BURGER_ARROW;
         initToolbar();
         initDrawerLayout();
@@ -46,12 +61,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBurgerCheckButton.setOnClickListener(this);
     }
 
+    /**
+     * 初始化Toolbar
+     */
     private void initToolbar() {
         mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setNavigationIcon(mMenuDrawable);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
+                 * 判断点击icon时是关闭还是打开drawerLayout
+                 */
                 boolean drawerOpen = mDrawerLayout.isDrawerOpen(GravityCompat.START);
                 if (drawerOpen) {
                     mDrawerLayout.closeDrawer(GravityCompat.START);
@@ -62,10 +83,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    /**
+     * 初始化DrawerLayout
+     */
     private void initDrawerLayout() {
         mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
+                /**
+                 * 实现drawerLayout滑动过程中icon的动画变化
+                 */
                 mMenuDrawable.setTransformationOffset(
                         mCurrentState, isDrawerOpen ?
                                 2 - slideOffset : slideOffset);
@@ -89,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        /**
+         * 通过按钮改变icon的切换动画
+         */
         switch (v.getId()) {
             case R.id.burger_arrow_button:
                 mCurrentState = MaterialMenuDrawable.AnimationState.BURGER_ARROW;
