@@ -1,4 +1,4 @@
-# ATToolbarStudy
+# ToolbarExample
 Android中Toolbar的使用
 
 # ScreenShots
@@ -167,3 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 }
 
 ````
+# Sample source code
+[https://github.com/kuangxiaoguo0123/ToolbarExample](https://github.com/kuangxiaoguo0123/ToolbarExample)
+# More information
+[http://blog.csdn.net/kuangxiaoguo0123/article/details/53400561](http://blog.csdn.net/kuangxiaoguo0123/article/details/53400561)
